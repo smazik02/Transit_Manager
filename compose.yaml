@@ -1,0 +1,10 @@
+services:
+  postgres-transit:
+    image: 'postgres:latest'
+    environment:
+      - POSTGRES_DB=transit-db
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=admin
+    ports:
+      - '5432:5432'
+    restart: no

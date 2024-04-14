@@ -1,0 +1,22 @@
+#spring.application.name=transit-manager
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/transit-db
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  docker:
+    compose:
+      lifecycle-management: start_only
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security: DEBUG
