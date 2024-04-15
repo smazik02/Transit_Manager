@@ -1,5 +1,6 @@
 package com.stanley.transitmanager.domain.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -17,8 +18,9 @@ import lombok.ToString;
 public class StopEntity {
 
     @Id
-    private String name;
+    private long id;
 
-    private String location;
+    @Column(nullable = false, unique = true)
+    private String name;
 
 }
