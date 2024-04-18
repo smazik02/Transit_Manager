@@ -2,10 +2,7 @@ package com.stanley.transitmanager.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -18,17 +15,26 @@ import static jakarta.persistence.CascadeType.ALL;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @ToString
 public class RideEntity {
 
     @Id
-    private long id;
+    private Long id;
 
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
     @Column(name = "start_time", nullable = false)
     private LocalTime startTime;
+
+    @Column(
+            name = "start_stop_id",
+            nullable = false,
+            insertable = false,
+            updatable = false
+    )
+    private Long startStopId;
 
     @ManyToOne(cascade = ALL, optional = false)
     @JoinColumn(name = "start_stop_id")
@@ -41,6 +47,9 @@ public class RideEntity {
     @Column(name = "end_time")
     private LocalTime endTime;
 
+    @Column(name = "end_stop_id", insertable = false, updatable = false)
+    private Long endStopId;
+
     @ManyToOne(cascade = ALL)
     @JoinColumn(name = "end_stop_id")
     @JsonBackReference
@@ -48,5 +57,13 @@ public class RideEntity {
 
     @Column(precision = 2)
     private BigDecimal fare;
+
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+    private Long userId;
+
+    @ManyToOne(cascade = ALL, optional = false)
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private UserEntity user;
 
 }

@@ -1,11 +1,9 @@
 package com.stanley.transitmanager.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -17,19 +15,26 @@ import static jakarta.persistence.FetchType.LAZY;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString()
+@Builder
+@ToString
 public class StopOnLineEntity {
 
     @Id
-    private long id;
+    private Long id;
 
     @Column(name = "stop_number", nullable = false)
-    private int stopNumber;
+    private Integer stopNumber;
+
+    @Column(name = "line_number", nullable = false, insertable = false, updatable = false)
+    private Integer lineNumber;
 
     @ManyToOne(cascade = ALL, optional = false)
     @JoinColumn(name = "line_number")
     @JsonBackReference
     private LineEntity line;
+
+    @Column(name = "stop_id", nullable = false, insertable = false, updatable = false)
+    private Long stopId;
 
     @ManyToOne(cascade = ALL, optional = false)
     @JoinColumn(name = "stop_id")
@@ -37,6 +42,7 @@ public class StopOnLineEntity {
     private StopEntity stop;
 
     @OneToMany(cascade = ALL, fetch = LAZY, mappedBy = "lineStop")
+    @JsonManagedReference
     private List<ArrivalEntity> arrivals;
 
 }

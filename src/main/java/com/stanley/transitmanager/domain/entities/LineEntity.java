@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.stanley.transitmanager.domain.enums.OperatingTime;
 import com.stanley.transitmanager.domain.enums.TransitType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -20,11 +17,12 @@ import static jakarta.persistence.FetchType.LAZY;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @ToString
 public class LineEntity {
 
     @Id
-    private int number;
+    private Integer number;
 
     @Column(name = "transit_type", nullable = false)
     @Enumerated(STRING)
